@@ -28,7 +28,13 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +55,56 @@ const followersArray = [];
       </div>
     </div>
 */
+
+import axios from 'axios';
+console.log(axios);
+
+axios.get('https://api.github.com/users/mark-escosura') {
+  .then(resp => {
+    for (let i = 0; i < resp.data.length; i++) {
+      gitHubCardMaker(resp.data[i])
+    }
+  })
+}
+
+function gitHubCardMaker (object) {
+  
+  const card = document.createElement('div'); // Parent Element 
+  const profilePic = document.createElement('img'); // Child Element to card
+  const cardInfo = document.createElement('div'); // Child Element to card
+  const profileName = document.createElement('h3'); // Child Element to cardInfo
+  const profileUserName = document.createElement('p'); // // Child Element to cardInfo
+  const location = document.createElement('p'); // Child Element to cardInfo
+  const profileKey = document.createElement('p'); // Child Element to cardInfo
+  const profileLink = document.createElement('a'); // Child Element to profileKey
+  const profileFollowers = document.createElement('p'); // Child Element to cardInfo
+  const profileFollowing = document.createElement('p'); // Child Element to cardInfo
+  const profileBio = document.createElement('p'); // Child Element to cardInfo
+
+  card.appendChild(profilePic);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(profileName);
+  cardInfo.appendChild(profileUserName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profileKey);
+  profileKey.appendChild(profileLink);
+  cardInfo.appendChild(profileFollowers);
+  cardInfo.appendChild(profileFollowing);
+  cardInfo.appendChild(profileBio);
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  profileName.classList.add('name');
+  profileUserName.classList.add('username');
+
+  profilePic.src = object.data.avatar_url
+  profileLink.href = `Link: ${object.data.html_url}`;
+  
+  
+}
+
+gitHubCardMaker()
+
 
 /*
   List of LS Instructors Github username's:
